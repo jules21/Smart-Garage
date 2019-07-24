@@ -8,6 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
 import com.example.smartgarage.database.model.Book;
+import com.example.smartgarage.database.model.Booking;
+import com.example.smartgarage.database.model.Garage;
+import com.example.smartgarage.database.model.GarageService;
+import com.example.smartgarage.database.model.Service;
+import com.example.smartgarage.database.model.Specialist;
+import com.example.smartgarage.database.model.SpecialistTech;
+import com.example.smartgarage.database.model.Store;
+import com.example.smartgarage.database.model.User;
 
 import java.io.Writer;
 
@@ -38,7 +46,17 @@ public final class DatabaseController extends SQLiteOpenHelper {
     }
 
     // Add you LocalDatabaseModels here.
-    private final LocalDatabaseModel[] models = new LocalDatabaseModel[]{new Book.Model()};
+    private final LocalDatabaseModel[] models = new LocalDatabaseModel[]
+            {
+                    new Book.Model(),
+                    new Garage.Model(),
+                    new Booking.Model(),
+                    new GarageService.Model(),
+                    new Store.Model(),
+                    new Service.Model(),
+                    new User.Model(),
+                    new SpecialistTech.Model(),
+                    new Specialist.Model()};
 
 
     public synchronized static DatabaseController getInstance(Context context) {

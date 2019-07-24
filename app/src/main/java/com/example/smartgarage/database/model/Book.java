@@ -10,6 +10,13 @@ import com.example.smartgarage.database.DatabaseController.LocalDatabaseModel;
 
 public final class Book {
 
+    private static final String TABLE_BOOK= "book";
+
+    private static final String KEY_ID = "id";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_CREATED_AT = "created_at";
+
     private long id = -1;
     private String title;
     private String description;
@@ -69,6 +76,12 @@ public final class Book {
 
     public static class Model extends LocalDatabaseModel {
 
+        // GARAGE table create statement
+        private static final String CREATE_TABLE_GARAGE = "CREATE TABLE "
+                + TABLE_BOOK + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_TITLE + " TEXT," + KEY_DESCRIPTION + " TEXT,"
+                + KEY_CREATED_AT + " TEXT" + ")";
+
         public Model(){
         }
 
@@ -79,9 +92,10 @@ public final class Book {
         @Override
         public void onCreate(SQLiteDatabase database){
             //Implement create logic for this model/table
-            database.execSQL("CREATE TABLE BOOK (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "TITLE TEXT, "
-                    + "DESCRIPTION TEXT);");
+//            database.execSQL("CREATE TABLE BOOK (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+//                    + KEY_TITLE + "TEXT, "
+//                    + KEY_DESCRIPTION +"TEXT);");
+            database.execSQL(CREATE_TABLE_GARAGE);
         }
     }
 }

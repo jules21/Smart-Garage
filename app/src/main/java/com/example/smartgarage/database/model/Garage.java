@@ -1,5 +1,8 @@
 package com.example.smartgarage.database.model;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase;
+import com.example.smartgarage.database.DatabaseController.LocalDatabaseModel;
 public class Garage {
 
     private int id;
@@ -7,6 +10,11 @@ public class Garage {
     private String address;
     private String created_at;
 
+
+    public Garage(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     public int getId() {
         return id;
@@ -38,5 +46,39 @@ public class Garage {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    public static class Model extends LocalDatabaseModel {
+
+        private static final String TABLE_GARAGE = "garage";
+
+        // Common column names
+        private static final String KEY_ID = "id";
+        private static final String KEY_CREATED_AT = "created_at";
+
+        // GARAGE Table - column names
+        private static final String KEY_ADDRESS = "address";
+        private static final String KEY_NAME = "name";
+
+        // GARAGE table create statement
+        private static final String CREATE_TABLE_GARAGE = "CREATE TABLE "
+                + TABLE_GARAGE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_NAME + " TEXT," + KEY_ADDRESS + " TEXT,"
+                +KEY_CREATED_AT + " TEXT" + ")";
+
+
+        public Model(){
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion){
+            //Implement update logic for this model/table
+            database.execSQL("DROP TABLE IF EXISTS " + TABLE_GARAGE);
+        }
+        @Override
+        public void onCreate(SQLiteDatabase database){
+            //Implement create logic for this model/table
+            database.execSQL(CREATE_TABLE_GARAGE);
+        }
     }
 }
