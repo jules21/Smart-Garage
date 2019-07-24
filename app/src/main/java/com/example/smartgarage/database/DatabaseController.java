@@ -28,9 +28,14 @@ public final class DatabaseController extends SQLiteOpenHelper {
     private SQLiteDatabase database;
     private int openConnections = 0;
 
-    private static final String DATABASE = "database-name.db";
+    private static final String DATABASE = "smartgarage";
     private static final int VERSION = 1;
     private static DatabaseController instance = null;
+
+
+    private DatabaseController(Context context) {
+        super(context, DATABASE, null, VERSION);
+    }
 
     // Add you LocalDatabaseModels here.
     private final LocalDatabaseModel[] models = new LocalDatabaseModel[]{new Book.Model()};
@@ -43,9 +48,7 @@ public final class DatabaseController extends SQLiteOpenHelper {
         return instance;
     }
 
-    private DatabaseController(Context context) {
-        super(context, DATABASE, null, VERSION);
-    }
+
 
     /**
      * Must be called from the same thread as the original openDatabase call.

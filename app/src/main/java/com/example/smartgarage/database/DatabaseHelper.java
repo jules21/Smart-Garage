@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.smartgarage.R;
+import com.example.smartgarage.database.model.Marker;
 import com.example.smartgarage.database.model.Technicial;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_SERVICE = "service";
     private static final String TABLE_GARAGE_SERVICE = "garage_service";
     private static final String TABLE_BOOKING = "booking";
+    private static final String TABLE_MARKER= "marker";
 
     // Common column names
     private static final String KEY_ID = "id";
@@ -134,10 +136,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_GARAGE_ID + " INTEGER," + KEY_SERVICE_ID + " INTEGER,"+ KEY_USER_ID + " INTEGER,"
             +KEY_CREATED_AT + " DATETIME" + ")";
 
+    // MARKET table create statement
+    private static final String CREATE_TABLE_MARKER = "CREATE TABLE "
+            + TABLE_TECHNICIAL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "name TEXT," + "address TEXT,"+  "lat TEXT,"+ "lng TEXT,"
+            +KEY_CREATED_AT + " DATETIME" + ")";
 
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -161,6 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_SERVICE);
             db.execSQL(CREATE_TABLE_GARAGE_SERVICE);
             db.execSQL(CREATE_TABLE_BOOKING);
+            db.execSQL(CREATE_TABLE_MARKER);
         }
         if (oldVersion < 2) {
             // on upgrade drop older tables
@@ -197,4 +206,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return technicial_id;
     }
+
+ public long addMarker(Marker marker) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, marker.getName());
+        values.put(KEY_ADDRESS, marker.getAddress());
+        values.put("lat", marker.getLat());
+        values.put("lng", marker.getLng());
+        values.put(KEY_CREATED_AT, getDateTime());
+
+        // insert row
+        long marker_id = db.insert(TABLE_MARKER, null, values);
+
+        return marker_id;
+    }
+
+
 }
