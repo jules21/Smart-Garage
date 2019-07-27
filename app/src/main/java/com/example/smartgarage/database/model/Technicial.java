@@ -1,8 +1,15 @@
 package com.example.smartgarage.database.model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.example.smartgarage.database.DatabaseController;
 import com.example.smartgarage.database.DatabaseController.LocalDatabaseModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Technicial {
     private int id;
@@ -13,6 +20,20 @@ public class Technicial {
     private String address;
     private int garage_id;
     private String created_at;
+
+    public Technicial() {
+    }
+
+    // Logcat tag
+    private static final String LOG = "DatabaseHelper";
+
+    public Technicial(String names, String email, String phone, String password, String address) {
+        this.names = names;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.address = address;
+    }
 
     public Technicial(String names, String email, String phone, String password, String address, int garage_id) {
         this.names = names;
@@ -87,6 +108,125 @@ public class Technicial {
         this.garage_id = garage_id;
     }
 
+    //    crud operation
+
+    //    insert record
+    public long save(DatabaseController db){
+        //save or update the book, throw an exception on failure.
+        SQLiteDatabase database = db.getWritableDatabase();
+
+        Log.e(LOG, "create meachanician account");
+
+        ContentValues values = new ContentValues();
+        values.put(Model.KEY_NAMES, this.getNames());
+        values.put(Model.KEY_EMAIL, this.getEmail());
+        values.put(Model.KEY_PHONE, this.getPhone());
+        values.put(Model.KEY_PASSWORD, this.getPassword());
+        values.put(Model.KEY_ADDRESS, this.getAddress());
+        values.put(Model.KEY_GARAGE_ID, this.getGarage_id());
+        values.put(Model.KEY_CREATED_AT, db.getDateTime());
+
+        // insert row
+        long technician_id = database.insert(Model.TABLE_TECHNICIAL, null, values);
+
+        return technician_id;
+    }
+
+    /*
+     * get single Technician
+     */
+    public Technicial single(DatabaseController helper, long technician_id) {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + Model.TABLE_TECHNICIAL + " WHERE "
+                + Model.KEY_ID + " = " + technician_id;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+
+        this.setId(c.getInt(c.getColumnIndex(Model.KEY_ID)));
+        this.setNames(c.getString(c.getColumnIndex(Model.KEY_NAMES)));//
+        this.setEmail(c.getString(c.getColumnIndex(Model.KEY_EMAIL)));
+        this.setPhone(c.getString(c.getColumnIndex(Model.KEY_PASSWORD)));
+        this.setPassword(c.getString(c.getColumnIndex(Model.KEY_PASSWORD)));
+        this.setAddress(c.getString(c.getColumnIndex(Model.KEY_ADDRESS)));
+        this.setGarage_id(c.getInt(c.getColumnIndex(Model.KEY_GARAGE_ID)));
+
+        this.setCreated_at(c.getString(c.getColumnIndex(Model.KEY_CREATED_AT)));
+
+        return this;
+    }
+
+    /*
+     * getting all Technicians
+     * */
+
+    public static List<Technicial> getAll(DatabaseController helper) {
+
+        List<Technicial> technicians = new ArrayList<Technicial>();
+        String selectQuery = "SELECT  * FROM " + Model.TABLE_TECHNICIAL;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        Technicial tech = new Technicial();
+        if (c.moveToFirst()) {
+            do {
+                tech.setId(c.getInt(c.getColumnIndex(Model.KEY_ID)));
+                tech.setNames(c.getString(c.getColumnIndex(Model.KEY_NAMES)));//
+                tech.setEmail(c.getString(c.getColumnIndex(Model.KEY_EMAIL)));
+                tech.setPhone(c.getString(c.getColumnIndex(Model.KEY_PASSWORD)));
+                tech.setPassword(c.getString(c.getColumnIndex(Model.KEY_PASSWORD)));
+                tech.setAddress(c.getString(c.getColumnIndex(Model.KEY_ADDRESS)));
+                tech.setGarage_id(c.getInt(c.getColumnIndex(Model.KEY_GARAGE_ID)));
+                tech.setCreated_at(c.getString(c.getColumnIndex(Model.KEY_CREATED_AT)));
+
+                // adding to todo list
+                technicians.add(tech);
+            } while (c.moveToNext());
+        }
+
+        return technicians;
+    }
+    /*
+     * Updating a Technician
+     */
+    public int update(DatabaseController helper) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Model.KEY_NAMES, this.getNames());
+        values.put(Model.KEY_EMAIL, this.getEmail());
+        values.put(Model.KEY_PHONE, this.getPhone());
+        values.put(Model.KEY_PASSWORD, this.getPassword());
+        values.put(Model.KEY_ADDRESS, this.getAddress());
+        values.put(Model.KEY_GARAGE_ID, this.getGarage_id());
+        values.put(Model.KEY_CREATED_AT, helper.getDateTime());
+
+        // updating row
+        return db.update(Model.TABLE_TECHNICIAL, values, Model.KEY_ID + " = ?",
+                new String[] { String.valueOf(this.getId()) });
+    }
+
+    /*
+     * Deleting a Technician
+     */
+    public void delete(DatabaseController helper, long technician_id) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        db.delete(Model.TABLE_TECHNICIAL, Model.KEY_ID + " = ?",
+                new String[] { String.valueOf(technician_id) });
+    }
+
     public static class Model extends LocalDatabaseModel {
 
 
@@ -108,8 +248,8 @@ public class Technicial {
         // TECHNICIAL table create statement
         private static final String CREATE_TABLE_TECHNICIAL = "CREATE TABLE "
                 + TABLE_TECHNICIAL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_NAMES + " TEXT," + KEY_EMAIL + " TEXT,"+ KEY_PASSWORD + "TEXT,"+ KEY_PHONE + "TEXT,"
-                + KEY_ADDRESS + " TEXT," + KEY_GARAGE_ID + "INTEGER,"
+                + KEY_NAMES + " TEXT," + KEY_EMAIL + " TEXT,"+ KEY_PASSWORD + " TEXT,"+ KEY_PHONE + " TEXT,"
+                + KEY_ADDRESS + " TEXT,"+ KEY_GARAGE_ID + " INTEGER,"
                 +KEY_CREATED_AT + " TEXT" + ")";
 
         public Model(){

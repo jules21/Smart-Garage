@@ -15,9 +15,13 @@ import com.example.smartgarage.database.model.Service;
 import com.example.smartgarage.database.model.Specialist;
 import com.example.smartgarage.database.model.SpecialistTech;
 import com.example.smartgarage.database.model.Store;
+import com.example.smartgarage.database.model.Technicial;
 import com.example.smartgarage.database.model.User;
 
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public final class DatabaseController extends SQLiteOpenHelper {
 
@@ -55,8 +59,10 @@ public final class DatabaseController extends SQLiteOpenHelper {
                     new Store.Model(),
                     new Service.Model(),
                     new User.Model(),
+                    new Technicial.Model(),
                     new SpecialistTech.Model(),
-                    new Specialist.Model()};
+                    new Specialist.Model()
+            };
 
 
     public synchronized static DatabaseController getInstance(Context context) {
@@ -169,5 +175,11 @@ public final class DatabaseController extends SQLiteOpenHelper {
     /* I often have some utility methods in this class too. */
     public long getCount(String table){
         return DatabaseUtils.queryNumEntries(database(), table);
+    }
+    public String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

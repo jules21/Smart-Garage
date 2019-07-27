@@ -10,13 +10,6 @@ import com.example.smartgarage.database.DatabaseController.LocalDatabaseModel;
 
 public final class Book {
 
-    private static final String TABLE_BOOK= "book";
-
-    private static final String KEY_ID = "id";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_CREATED_AT = "created_at";
-
     private long id = -1;
     private String title;
     private String description;
@@ -57,11 +50,12 @@ public final class Book {
         SQLiteDatabase database = db.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("TITLE", this.getTitle());
-        values.put("DESCRIPTION", this.getDescription());
+        values.put(Model.KEY_TITLE, this.getTitle());
+        values.put(Model.KEY_DESCRIPTION, this.getDescription());
+        values.put(Model.KEY_CREATED_AT, db.getDateTime());
 
         // insert row
-        long book_id = database.insert("BOOK", null, values);
+        long book_id = database.insert(Model.TABLE_BOOK, null, values);
 
         return book_id;
     }
@@ -75,6 +69,13 @@ public final class Book {
     //More static methods here
 
     public static class Model extends LocalDatabaseModel {
+
+        private static final String TABLE_BOOK= "book";
+
+        private static final String KEY_ID = "id";
+        private static final String KEY_TITLE = "title";
+        private static final String KEY_DESCRIPTION = "description";
+        private static final String KEY_CREATED_AT = "created_at";
 
         // GARAGE table create statement
         private static final String CREATE_TABLE_GARAGE = "CREATE TABLE "

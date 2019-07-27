@@ -85,7 +85,7 @@ public class User {
         // User table create statement
         private static final String CREATE_TABLE_USERS = "CREATE TABLE "
                 + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_FIRSTNAME + " TEXT," + KEY_LASTNAME + " TEXT,"+ KEY_EMAIL + "TEXT,"+ KEY_PASSWORD + "TEXT,"
+                + KEY_FIRSTNAME + " TEXT," + KEY_LASTNAME + " TEXT,"+ KEY_EMAIL + " TEXT,"+ KEY_PASSWORD + " TEXT,"
                 + KEY_CREATED_AT + " TEXT" + ")";
 
         public Model(){
