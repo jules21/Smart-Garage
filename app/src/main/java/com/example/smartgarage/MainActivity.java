@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        DatabaseController db = DatabaseController.getInstance(getApplicationContext());
-        db.getWritableDatabase();
+        setContentView(R.layout.activity_login);
+//
+//        DatabaseController db = DatabaseController.getInstance(getApplicationContext());
+//        db.getWritableDatabase();
 
 
 ////        technitian test
@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Getting all Todos
 
-        Log.d("Get Technicial", "Getting All Technicians");
-        List<Technicial> technicials = Technicial.getAll(db);
-        for (Technicial tech : technicials) {
-            Log.d("Tech", tech.getNames() + "Email:" + tech.getEmail());
-        }
-        db.close();
-//
-        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
+//        Log.d("Get Technicial", "Getting All Technicians");
+//        List<Technicial> technicials = Technicial.getAll(db);
+//        for (Technicial tech : technicials) {
+//            Log.d("Tech", tech.getNames() + "Email:" + tech.getEmail());
+//        }
+//        db.close();
+////
+//        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
 
     }
     public void testDB(View v){

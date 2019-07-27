@@ -227,6 +227,96 @@ public class Technicial {
                 new String[] { String.valueOf(technician_id) });
     }
 
+    /**
+     * This method to check user exist or not
+     *
+     * @param email
+     * @return true/false
+     */
+
+    public boolean checkUser(DatabaseController helper, String email) {
+
+        // array of columns to fetch
+        String[] columns = {
+                Model.KEY_EMAIL
+        };
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        // selection criteria
+        String selection = Model.KEY_EMAIL + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {email};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query(Model.TABLE_TECHNICIAL, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        if (cursorCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * This method to check user exist or not
+     *
+     * @param email
+     * @param password
+     * @return true/false
+     */
+    public boolean checkUser(DatabaseController helper, String email, String password) {
+
+        // array of columns to fetch
+        String[] columns = {
+                Model.KEY_ID
+        };
+        SQLiteDatabase db = helper.getReadableDatabase();
+        // selection criteria
+        String selection = Model.KEY_EMAIL + " = ?" + " AND " + Model.KEY_PASSWORD + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {email, password};
+
+        // query user table with conditions
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com' AND user_password = 'qwerty';
+         */
+        Cursor cursor = db.query(Model.TABLE_TECHNICIAL, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+
+        cursor.close();
+        db.close();
+        if (cursorCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static class Model extends LocalDatabaseModel {
 
 
