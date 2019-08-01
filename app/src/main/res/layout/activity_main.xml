@@ -14,7 +14,9 @@
         android:id="@+id/ll"
         tools:context=".MainActivity">
 
-
+<!--<androidx.core.widget.NestedScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
         <LinearLayout
             android:clipToPadding="false"
@@ -35,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/findme"
-                    android:onClick="testDB"
+                    android:onClick="findMe"
                     android:orientation="vertical">
 
                     <ImageView
@@ -79,6 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:onClick="getSpareparts"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
@@ -125,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:onClick="getMechanician"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
@@ -137,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Add"/>
+                        android:text="Mechanician"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -164,6 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:onClick="findGarage"
                     android:orientation="vertical">
 
                     <ImageView
@@ -177,7 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Links"
+                        android:text="Garage"
                         android:textStyle="bold" />
 
                     <View
@@ -246,5 +251,5 @@
 
 
         </LinearLayout>
-
+<!--</androidx.core.widget.NestedScrollView>-->
     </LinearLayout>
