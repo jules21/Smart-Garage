@@ -1,11 +1,11 @@
 package com.example.smartgarage.Model;
 
-public class Speciality {
+public class Service {
     private int id;
     private String name;
     private String description;
 
-    public Speciality(String name, String description) {
+    public Service(String name, String description) {
         this.name = name;
         this.description = description;
     }

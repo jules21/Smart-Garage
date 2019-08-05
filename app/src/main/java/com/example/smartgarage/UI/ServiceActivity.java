@@ -6,8 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.smartgarage.Constants;
-import com.example.smartgarage.Model.Garage;
+import com.example.smartgarage.Model.Service;
 import com.example.smartgarage.R;
 import com.example.smartgarage.SmartGarageApi;
 
@@ -18,10 +17,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class GarageActivity extends AppCompatActivity {
+public class ServiceActivity extends AppCompatActivity {
 
     SmartGarageApi smartGarageApi;
     private TextView textViewResult;
@@ -29,36 +26,27 @@ public class GarageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_garage);
-
-        textViewResult = (TextView)findViewById(R.id.text_view_result);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.apiUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        smartGarageApi = retrofit.create(SmartGarageApi.class);
+        setContentView(R.layout.activity_service);
     }
+    private void getServices() {
 
-    private void getGarages() {
 
+        Call<List<Service>> call = smartGarageApi.getServices();
 
-        Call<List<Garage>> call = smartGarageApi.getGarages();
-
-        call.enqueue(new Callback<List<Garage>>() {
+        call.enqueue(new Callback<List<Service>>() {
             @Override
-            public void onResponse(Call<List<Garage>> call, Response<List<Garage>> response) {
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if (!response.isSuccessful())
                 {
                     textViewResult.setText("Code " + response.code());
                     return;
                 }
-                List<Garage> Garages = response.body();
+                List<Service> Services = response.body();
 
-                for(Garage Garage : Garages){
+                for(Service Service : Services){
                     String content = "";
-//                    content += "names: "+Garage.getNames() + "\n";
-//                    content += "email: "+Garage.getEmail() + "\n";
+//                    content += "names: "+Service.getNames() + "\n";
+//                    content += "email: "+Service.getEmail() + "\n";
                     content = "it's working";
 
                     textViewResult.append(content);
@@ -66,31 +54,31 @@ public class GarageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Garage>> call, Throwable t) {
+            public void onFailure(Call<List<Service>> call, Throwable t) {
                 textViewResult.setText(t.getMessage());
             }
         });
     }
 
-    private void getGarage() {
+    private void getService() {
 
 
-        Call<List<Garage>> call = smartGarageApi.getGarage(1);
+        Call<List<Service>> call = smartGarageApi.getService(1);
 
-        call.enqueue(new Callback<List<Garage>>() {
+        call.enqueue(new Callback<List<Service>>() {
             @Override
-            public void onResponse(Call<List<Garage>> call, Response<List<Garage>> response) {
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if (!response.isSuccessful())
                 {
                     textViewResult.setText("Code " + response.code());
                     return;
                 }
-                List<Garage> Garages = response.body();
+                List<Service> Services = response.body();
 
-                for(Garage Garage : Garages){
+                for(Service Service : Services){
                     String content = "";
-//                    content += "names: "+Garage.getNames() + "\n";
-//                    content += "email: "+Garage.getEmail() + "\n";
+//                    content += "names: "+Service.getNames() + "\n";
+//                    content += "email: "+Service.getEmail() + "\n";
                     content = "it's working";
 
                     textViewResult.append(content);
@@ -98,25 +86,25 @@ public class GarageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Garage>> call, Throwable t) {
+            public void onFailure(Call<List<Service>> call, Throwable t) {
                 textViewResult.setText(t.getMessage());
             }
         });
     }
 
-    private  void createGarage(){
+    private  void createService(){
         Map<String, String> fields = new HashMap<>();
         fields.put("names","2");
         fields.put("email","2");
         fields.put("phone","2");
         fields.put("secret","2");
         fields.put("address","2");
-//        Garage Garage = new Garage(fields);
-        Garage Garage = new Garage("smart garage", "kigali rwanda kG st 234","078545455", "this is me .");
-        Call<Garage> call = smartGarageApi.createGarage(Garage);
-        call.enqueue(new Callback<Garage>() {
+//        Service Service = new Service(fields);
+        Service Service = new Service("smart Service", "kigali rwanda kG st 234");
+        Call<Service> call = smartGarageApi.createService(Service);
+        call.enqueue(new Callback<Service>() {
             @Override
-            public void onResponse(Call<Garage> call, Response<Garage> response) {
+            public void onResponse(Call<Service> call, Response<Service> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Request Sent but Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -124,25 +112,22 @@ public class GarageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Garage> call, Throwable t) {
+            public void onFailure(Call<Service> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Something went wrong, check ur network connection", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private  void updateGarage(){
+    private  void updateService(){
         Map<String, String> fields = new HashMap<>();
         fields.put("name","2");
-        fields.put("address","2");
-        fields.put("phone","2");
         fields.put("description","2");
-        fields.put("address","2");
-//        Garage Garage = new Garage(fields);
-//        Garage Garage = new Garage("jules", "jules@gmail.com", "087323334","secret","kigali rwanda");
-        Call<Garage> call = smartGarageApi.updateGarage(1, fields);
-        call.enqueue(new Callback<Garage>() {
+//        Service Service = new Service(fields);
+//        Service Service = new Service("jules", "jules@gmail.com", "087323334","secret","kigali rwanda");
+        Call<Service> call = smartGarageApi.updateService(1, fields);
+        call.enqueue(new Callback<Service>() {
             @Override
-            public void onResponse(Call<Garage> call, Response<Garage> response) {
+            public void onResponse(Call<Service> call, Response<Service> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Request Sent but Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -150,31 +135,31 @@ public class GarageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Garage> call, Throwable t) {
+            public void onFailure(Call<Service> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Something went wrong, check ur network connection", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void deleteGarage() {
+    private void deleteService() {
 
 
-        Call<List<Garage>> call = smartGarageApi.deleteGarage(1);
+        Call<List<Service>> call = smartGarageApi.deleteService(1);
 
-        call.enqueue(new Callback<List<Garage>>() {
+        call.enqueue(new Callback<List<Service>>() {
             @Override
-            public void onResponse(Call<List<Garage>> call, Response<List<Garage>> response) {
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if (!response.isSuccessful())
                 {
                     textViewResult.setText("Code " + response.code());
                     return;
                 }
-                List<Garage> Garages = response.body();
+                List<Service> Services = response.body();
 
-                for(Garage Garage : Garages){
+                for(Service Service : Services){
                     String content = "";
-//                    content += "names: "+Garage.getNames() + "\n";
-//                    content += "email: "+Garage.getEmail() + "\n";
+//                    content += "names: "+Service.getNames() + "\n";
+//                    content += "email: "+Service.getEmail() + "\n";
                     content = "it's working";
 
                     textViewResult.append(content);
@@ -182,12 +167,9 @@ public class GarageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Garage>> call, Throwable t) {
+            public void onFailure(Call<List<Service>> call, Throwable t) {
                 textViewResult.setText(t.getMessage());
             }
         });
     }
-
-
 }
-

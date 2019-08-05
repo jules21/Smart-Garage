@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.MechanicianActivity"></activity>
+        <activity android:name=".UI.SpecialityActivity"></activity>
+        <activity android:name=".UI.ServiceActivity" />
+        <activity android:name=".UI.RegisterMechanician" />
+        <activity android:name=".UI.MechanicianActivity" />
         <activity android:name=".UI.RegisterActivity" />
         <activity android:name=".UI.LoginActivity" />
         <activity android:name=".MapsActivity" />

@@ -1,13 +1,11 @@
 package com.example.smartgarage.api;
 
 import com.example.smartgarage.Model.Mechanician;
-import com.example.smartgarage.Model.Speciality;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public interface MechanicianApi {
     @GET("mechanicians")
@@ -15,5 +13,11 @@ public interface MechanicianApi {
 //
 //    @GET("mechanicians/{id}/specialities")
 //    Call<List<Speciality>> getSpecialities(@Path("id") int MechanicianId);
+//@GET("posts")
+//Call<List<Post>> getPosts(
+//        @Query("userId") Integer[] userId,
+//        @Query("_sort") String sort,
+//        @Query("_order") String order
+//);
 }
 

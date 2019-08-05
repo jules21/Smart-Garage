@@ -18,4 +18,8 @@
     <string name="error_valid_email_password">Wrong Email or Password</string>
     <string name="title_activity_find_me_maps">Map</string>
     <string name="title_activity_store">Map</string>
+
+    <string name="username_validation_msg">Username cannot be blank</string>
+    <string name="signup_success">Welcome User !</string>
+    <string name="pwd_validation_msg">Minimum 8 characters required</string>
 </resources>

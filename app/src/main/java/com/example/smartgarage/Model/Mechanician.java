@@ -9,6 +9,16 @@ public class Mechanician {
     private String address;
     private int garage_id;
 
+
+
+    public Mechanician(String names, String email, String phone, String password, String address) {
+        this.names = names;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }
