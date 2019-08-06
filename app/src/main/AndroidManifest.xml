@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.SpecialityActivity"></activity>
+        <activity android:name=".MActivity"></activity>
+        <activity android:name=".UI.LocationActivity" />
+        <activity android:name=".UI.SpecialityActivity" />
         <activity android:name=".UI.ServiceActivity" />
         <activity android:name=".UI.RegisterMechanician" />
         <activity android:name=".UI.MechanicianActivity" />

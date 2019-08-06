@@ -1,30 +1,35 @@
 package com.example.smartgarage.UI;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.smartgarage.Constants;
 import com.example.smartgarage.Model.Mechanician;
 import com.example.smartgarage.R;
 import com.example.smartgarage.SmartGarageApi;
+import com.example.smartgarage.api.APIClient;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MechanicianActivity extends AppCompatActivity {
 
     SmartGarageApi smartGarageApi;
-
+    private static Logger LOGGER = Logger.getLogger("InfoLogging");
     private TextView textViewResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,13 @@ public class MechanicianActivity extends AppCompatActivity {
 
         textViewResult = (TextView)findViewById(R.id.text_view_result);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.apiUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        smartGarageApi = retrofit.create(SmartGarageApi.class);
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(Constants.apiUrl)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        smartGarageApi = retrofit.create(SmartGarageApi.class);
+
+        smartGarageApi = APIClient.getClient().create(SmartGarageApi.class);
 
 
         getMechanicians();
@@ -55,6 +62,7 @@ public class MechanicianActivity extends AppCompatActivity {
         Call<List<Mechanician>> call = smartGarageApi.getMechanicians();
 
         call.enqueue(new Callback<List<Mechanician>>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Call<List<Mechanician>> call, Response<List<Mechanician>> response) {
                 if (!response.isSuccessful())
@@ -62,16 +70,31 @@ public class MechanicianActivity extends AppCompatActivity {
                     textViewResult.setText("Code " + response.code());
                     return;
                 }
-                List<Mechanician> mechanicians = response.body();
+                String teamString = response.body().toString();
+                try {
+                    JSONObject object = new JSONObject(teamString);
+                    JSONArray array = new JSONArray(object);
+                    for(int i = 0; i<array.length(); i++){
+                        LOGGER.info(array[i].names);
 
-                for(Mechanician mechanician : mechanicians){
-                    String content = "";
-//                    content += "names: "+mechanician.getNames() + "\n";
-//                    content += "email: "+mechanician.getEmail() + "\n";
-                    content = "it's working";
+                    }
 
-                    textViewResult.append(content);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
+
+//                List<Mechanician> mechanicians = response.body();
+
+//                for(Mechanician mechanician : mechanicians){
+//                    String content = "";
+////                    content += "names: "+mechanician.getNames() + "\n";
+////                    content += "email: "+mechanician.getEmail() + "\n";
+//                    content = "it's working";
+//
+                    textViewResult.append(teamString);
+//                    log.e()
+//                }
             }
 
             @Override
