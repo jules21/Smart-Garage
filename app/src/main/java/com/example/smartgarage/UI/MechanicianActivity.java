@@ -75,7 +75,7 @@ public class MechanicianActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(teamString);
                     JSONArray array = new JSONArray(object);
                     for(int i = 0; i<array.length(); i++){
-                        LOGGER.info(array[i].names);
+//                        LOGGER.info(array[i].names);
 
                     }
 
