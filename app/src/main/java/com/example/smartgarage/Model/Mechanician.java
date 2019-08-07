@@ -1,29 +1,38 @@
 package com.example.smartgarage.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Mechanician {
-    private int id;
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("names")
+    @Expose
     private String names;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("phone")
+    @Expose
     private String phone;
-    private String password;
+    @SerializedName("address")
+    @Expose
     private String address;
-    private int garage_id;
 
-
-
-    public Mechanician(String names, String email, String phone, String password, String address) {
+    public Mechanician(String names, String email, String phone, String address) {
         this.names = names;
         this.email = email;
         this.phone = phone;
-        this.password = password;
         this.address = address;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,14 +60,6 @@ public class Mechanician {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -67,11 +68,4 @@ public class Mechanician {
         this.address = address;
     }
 
-    public int getGarage_id() {
-        return garage_id;
-    }
-
-    public void setGarage_id(int garage_id) {
-        this.garage_id = garage_id;
-    }
 }

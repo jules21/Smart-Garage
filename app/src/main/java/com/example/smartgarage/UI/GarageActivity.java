@@ -112,7 +112,7 @@ public class GarageActivity extends AppCompatActivity {
         fields.put("secret","2");
         fields.put("address","2");
 //        Garage Garage = new Garage(fields);
-        Garage Garage = new Garage("smart garage", "kigali rwanda kG st 234","078545455", "this is me .");
+        Garage Garage = new Garage("smart garage", "kigali rwanda kG st 234");
         Call<Garage> call = smartGarageApi.createGarage(Garage);
         call.enqueue(new Callback<Garage>() {
             @Override

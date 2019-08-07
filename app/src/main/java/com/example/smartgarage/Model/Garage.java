@@ -1,26 +1,23 @@
 package com.example.smartgarage.Model;
 
-public class Garage {
-    private int id;
-    private String name;
-    private String address;
-    private String phone;
-    private String location;
-    private String description;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Garage(String name, String address, String phone, String description) {
+public class Garage {
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("location")
+    @Expose
+    private Object location;
+
+    public Garage(String name, String address) {
         this.name = name;
         this.address = address;
-        this.phone = phone;
-        this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -39,28 +36,12 @@ public class Garage {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getLocation() {
+    public Object getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Object location) {
         this.location = location;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
-

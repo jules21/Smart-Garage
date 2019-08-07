@@ -37,24 +37,10 @@ public class MechanicianActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mechanician);
 
         textViewResult = (TextView)findViewById(R.id.text_view_result);
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(Constants.apiUrl)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        smartGarageApi = retrofit.create(SmartGarageApi.class);
-
         smartGarageApi = APIClient.getClient().create(SmartGarageApi.class);
 
-
         getMechanicians();
-//        getMechanicianSpecialities();
-
     }
-
-//    private void getMechanicianSpecialities() {
-//        Call<List<Speciality>>
-//    }
 
     private void getMechanicians() {
 
@@ -62,7 +48,6 @@ public class MechanicianActivity extends AppCompatActivity {
         Call<List<Mechanician>> call = smartGarageApi.getMechanicians();
 
         call.enqueue(new Callback<List<Mechanician>>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(Call<List<Mechanician>> call, Response<List<Mechanician>> response) {
                 if (!response.isSuccessful())
@@ -70,31 +55,17 @@ public class MechanicianActivity extends AppCompatActivity {
                     textViewResult.setText("Code " + response.code());
                     return;
                 }
-                String teamString = response.body().toString();
-                try {
-                    JSONObject object = new JSONObject(teamString);
-                    JSONArray array = new JSONArray(object);
-                    for(int i = 0; i<array.length(); i++){
-//                        LOGGER.info(array[i].names);
+                List<Mechanician> mechanicians = response.body();
 
-                    }
+                for (Mechanician mechanician : mechanicians) {
+                    String content = "";
+                    content += "ID: " + mechanician.getId() + "\n";
+                    content += "User ID: " + mechanician.getNames() + "\n";
+                    content += "Title: " + mechanician.getEmail() + "\n";
+                    content += "Text: " + mechanician.getAddress() + "\n\n";
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    textViewResult.append(content);
                 }
-
-
-//                List<Mechanician> mechanicians = response.body();
-
-//                for(Mechanician mechanician : mechanicians){
-//                    String content = "";
-////                    content += "names: "+mechanician.getNames() + "\n";
-////                    content += "email: "+mechanician.getEmail() + "\n";
-//                    content = "it's working";
-//
-                    textViewResult.append(teamString);
-//                    log.e()
-//                }
             }
 
             @Override
@@ -112,18 +83,20 @@ public class MechanicianActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Mechanician>>() {
             @Override
             public void onResponse(Call<List<Mechanician>> call, Response<List<Mechanician>> response) {
-                if (!response.isSuccessful())
-                {
-                    textViewResult.setText("Code " + response.code());
+
+                if (!response.isSuccessful()) {
+                    textViewResult.setText("Code: " + response.code());
                     return;
                 }
+
                 List<Mechanician> mechanicians = response.body();
 
-                for(Mechanician mechanician : mechanicians){
+                for (Mechanician mechanician : mechanicians) {
                     String content = "";
-//                    content += "names: "+mechanician.getNames() + "\n";
-//                    content += "email: "+mechanician.getEmail() + "\n";
-                    content = "it's working";
+                    content += "ID: " + mechanician.getEmail() + "\n";
+                    content += "User ID: " + mechanician.getNames() + "\n";
+//                    content += "Title: " + mechanician.getAddress() + "\n";
+//                    content += "Text: " + mechanician.getPhone() + "\n\n";
 
                     textViewResult.append(content);
                 }
@@ -144,7 +117,7 @@ public class MechanicianActivity extends AppCompatActivity {
         fields.put("secret","2");
         fields.put("address","2");
 //        Mechanician mechanician = new Mechanician(fields);
-        Mechanician mechanician = new Mechanician("jules", "jules@gmail.com", "087323334","secret","kigali rwanda");
+        Mechanician mechanician = new Mechanician("jules", "jules@gmail.com", "087323334","kigali rwanda");
         Call<Mechanician> call = smartGarageApi.createMechanician(mechanician);
         call.enqueue(new Callback<Mechanician>() {
             @Override

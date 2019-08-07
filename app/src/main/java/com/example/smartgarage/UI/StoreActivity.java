@@ -132,7 +132,7 @@ public class StoreActivity extends FragmentActivity implements OnMapReadyCallbac
         fields.put("secret","2");
         fields.put("address","2");
 //        Sparepart Sparepart = new Sparepart(fields);
-        Sparepart Sparepart = new Sparepart("smart Sparepart", "kigali rwanda kG st 234","078545455", "this is me .");
+        Sparepart Sparepart = new Sparepart("smart Sparepart", "kigali rwanda kG st 234");
         Call<Sparepart> call = smartGarageApi.createSparepart(Sparepart);
         call.enqueue(new Callback<Sparepart>() {
             @Override
