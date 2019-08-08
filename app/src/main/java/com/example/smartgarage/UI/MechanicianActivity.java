@@ -118,21 +118,21 @@ public class MechanicianActivity extends AppCompatActivity {
         fields.put("address","2");
 //        Mechanician mechanician = new Mechanician(fields);
         Mechanician mechanician = new Mechanician("jules", "jules@gmail.com", "087323334","kigali rwanda");
-        Call<Mechanician> call = smartGarageApi.createMechanician(mechanician);
-        call.enqueue(new Callback<Mechanician>() {
-            @Override
-            public void onResponse(Call<Mechanician> call, Response<Mechanician> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Request Sent but Something went wrong", Toast.LENGTH_LONG).show();
-                }
-                Toast.makeText(getApplicationContext(), "Register done successful", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Mechanician> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Something went wrong, check ur network connection", Toast.LENGTH_LONG).show();
-            }
-        });
+//        Call<Mechanician> call = smartGarageApi.createMechanician(mechanician);
+//        call.enqueue(new Callback<Mechanician>() {
+//            @Override
+//            public void onResponse(Call<Mechanician> call, Response<Mechanician> response) {
+//                if(!response.isSuccessful()){
+//                    Toast.makeText(getApplicationContext(), "Request Sent but Something went wrong", Toast.LENGTH_LONG).show();
+//                }
+//                Toast.makeText(getApplicationContext(), "Register done successful", Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Mechanician> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Something went wrong, check ur network connection", Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     private  void updateMechanician(){

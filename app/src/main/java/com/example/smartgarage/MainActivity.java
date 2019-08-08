@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.smartgarage.UI.GarageActivity;
 import com.example.smartgarage.UI.MechanicianActivity;
+import com.example.smartgarage.UI.MechanicianList;
 import com.example.smartgarage.UI.StoreActivity;
 import com.example.smartgarage.database.DatabaseController;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getMechanician(View view) {
-        Intent i = new Intent(MainActivity.this, MechanicianActivity.class);
+        Intent i = new Intent(MainActivity.this, MechanicianList.class);
         startActivity(i);
     }
 

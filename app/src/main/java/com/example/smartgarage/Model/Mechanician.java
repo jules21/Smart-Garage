@@ -7,7 +7,7 @@ public class Mechanician {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("names")
     @Expose
     private String names;
@@ -20,6 +20,30 @@ public class Mechanician {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("location")
+    @Expose
+    private String location;
+
+    @SerializedName("password")
+    @Expose
+    private String password;
+
+    @SerializedName("garage_id")
+    @Expose
+    private Integer garage_id;
+
+    public Mechanician() {
+    }
+
+    public Mechanician(String names, String email, String phone, String address, String password) {
+        this.names = names;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.password = password;
+        this.location = "rwanda";
+        this.garage_id = 1;
+    }
 
     public Mechanician(String names, String email, String phone, String address) {
         this.names = names;
@@ -28,13 +52,21 @@ public class Mechanician {
         this.address = address;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
+
+    //    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public String getNames() {
         return names;
@@ -68,4 +100,27 @@ public class Mechanician {
         this.address = address;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getGarage_id() {
+        return garage_id;
+    }
+
+    public void setGarage_id(Integer garage_id) {
+        this.garage_id = garage_id;
+    }
 }

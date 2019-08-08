@@ -6,15 +6,19 @@ import com.example.smartgarage.Model.Service;
 import com.example.smartgarage.Model.Sparepart;
 import com.example.smartgarage.Model.Speciality;
 
+import org.w3c.dom.Comment;
+
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -22,17 +26,24 @@ public interface SmartGarageApi {
 
 //    mechanician api endpoints
 
+    @GET("mechanicians/{id}")
+    Call<Mechanician> singleMechanician(@Path("id") int mechId);
+
     @GET("mechanicians")
     Call<List<Mechanician>> getMechanicians();
 
      @GET("mechanicians/{id}")
     Call<List<Mechanician>> getMechanician(@Path("id") int mechId);
 
-    @POST("mechanicians")
-    Call<Mechanician> createMechanician(@Body Mechanician mechanician);
+    @GET("mechanicians/{id}/specialities")
+    Call<List<Speciality>> getMechSpecialities(@Path("id") int mechId);
 
-//        @POST("mechanicians")
-//    Call<Mechanician> createMechanician(@QueryMap Map<String, String> fields);
+//    @POST("mechanicians")
+//    Call<Mechanician> createMechanician(@Body Mechanician mechanician);
+
+
+        @POST("mechanicians")
+    Call<Mechanician> createMechanician(@QueryMap Map<String, String> fields);
 
 //    @PUT("mechanicians/{id}"
 //    Call<Mechanician> updateMechanicianCall(@Path("id") int mechId, @Body Mechanician mechanician);

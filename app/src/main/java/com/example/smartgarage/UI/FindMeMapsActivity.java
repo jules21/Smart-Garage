@@ -27,7 +27,6 @@ public class FindMeMapsActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        db = new DatabaseHelper(getApplicationContext());
     }
 
 
@@ -47,6 +46,7 @@ public class FindMeMapsActivity extends FragmentActivity implements OnMapReadyCa
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
